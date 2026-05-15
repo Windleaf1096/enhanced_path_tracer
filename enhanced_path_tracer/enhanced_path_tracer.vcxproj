@@ -150,11 +150,6 @@
     <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="Vector.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </None>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
