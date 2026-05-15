@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Cancle the ignorance of .obj in models
 !enhanced_path_tracer/models/**
+!enhanced_path_tracer/models/**/*.obj
