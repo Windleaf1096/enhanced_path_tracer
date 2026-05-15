@@ -363,5 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Cancle the ignorance of .obj in models
-!models/
-!models/**
+!enhanced_path_tracer/models/**
