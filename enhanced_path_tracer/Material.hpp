@@ -151,7 +151,7 @@ public:
 	float alpha; // roughness parameter for GGX
 	Vector3f F0; // Fresnel reflectance at normal incidence for GGX
 
-    inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0), float r = 0.3f);
+    inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0), float r = 0.7f);
     inline MaterialType getType();
     //inline Vector3f getColor();
     inline Vector3f getColorAt(double u, double v);
