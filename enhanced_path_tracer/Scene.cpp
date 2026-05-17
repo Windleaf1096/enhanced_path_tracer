@@ -30,6 +30,7 @@ void Scene::sampleLight(Intersection &pos, float &pdf) const
             emit_area_sum += objects[k]->getArea();
             if (p <= emit_area_sum){
                 objects[k]->Sample(pos, pdf);
+                pdf = 1.0f / emit_area_sum;  //Set the PDF to the reciprocal of the joint light source area.
                 break;
             }
         }

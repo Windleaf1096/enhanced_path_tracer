@@ -33,7 +33,7 @@ void Renderer::Render(const Scene& scene)
 
     // change the spp value to change sample ammount
     //int spp = 16;
-    int spp = 24;
+    int spp = 4;
     std::cout << "SPP: " << spp << "\n";
 
     std::atomic<int> completed_rows(0);

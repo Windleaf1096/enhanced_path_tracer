@@ -154,7 +154,7 @@ Vector3f Material::getColorAt(double u, double v) {
     return Vector3f();
 }
 
-
+//Given an incoming ray and the normal at the intersection point, sample a ray according to the material properties
 Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
     switch(m_type){
         case DIFFUSE:
@@ -188,6 +188,7 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
     }
 }
 
+//given a ray, calculate the pdf of this ray
 float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     switch(m_type){
         case DIFFUSE:
@@ -219,6 +220,8 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     }
 }
 
+
+//calculate the BRDF
 Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     switch(m_type){
         case DIFFUSE:
