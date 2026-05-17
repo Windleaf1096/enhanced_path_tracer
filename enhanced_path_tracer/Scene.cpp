@@ -118,19 +118,8 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         //If the ray hits an object that does not emit light
         if (indirInter.happened && !indirInter.m->hasEmission())
         {
-            //debug message
-            //float pdf_val = ma->pdf(wi, wo, N);
-            //Vector3f eval_val = ma->eval(wi, wo, N);
-            //float cos_term = dotProduct(wi, N);
-            //Vector3f weight = eval_val * cos_term / pdf_val;
-            //if (weight.x > 10.0f || weight.y > 10.0f || weight.z > 10.0f) {
-            //    std::cout << "Huge weight: " << weight << " pdf=" << pdf_val << " eval=" << eval_val << std::endl;
-            //}
-
             L_indir = castRay(Ray(p, wi), depth + 1) * ma->eval(wi, wo, N) * dotProduct(wi, N) / (ma->pdf(wi, wo, N) * RussianRoulette);
         }
-		//std::cout << "L_indir: " << L_indir << "\n";
-        //std::cout<<"L_dir eval="<<ma->eval(wi, wo, N)<<std::endl;
     }
 
     return L_lig + L_dir + L_indir;
