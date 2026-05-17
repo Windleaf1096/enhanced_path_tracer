@@ -234,8 +234,8 @@ inline Intersection Triangle::getIntersection(Ray ray)
     Intersection inter;
 
     //Debug test disable
-    //if (dotProduct(ray.direction, normal) > 0)
-    //    return inter;
+    if (dotProduct(ray.direction, normal) > 0)
+        return inter;
 
 
     double u, v, t_tmp = 0;
