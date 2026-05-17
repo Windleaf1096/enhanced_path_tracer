@@ -122,6 +122,7 @@ public:
     //Texture tex;
 	float roughness; // roughness parameter for GGX
 	float alpha; // roughness parameter for GGX
+	Vector3f F0; // Fresnel reflectance at normal incidence for GGX
 
     inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0), float r = 0.2f);
     inline MaterialType getType();
@@ -148,6 +149,7 @@ Material::Material(MaterialType t, Vector3f e,float r){
     specularExponent = 50.0f;
     roughness = r;
     alpha = roughness * roughness;
+    F0 = Vector3f(0.05f);
 }
 
 MaterialType Material::getType(){return m_type;}
