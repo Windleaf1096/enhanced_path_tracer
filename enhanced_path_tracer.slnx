@@ -6,5 +6,5 @@
   <Folder Name="/解决方案项/">
     <File Path="README.md" />
   </Folder>
-  <Project Path="enhanced_path_tracer/enhanced_path_tracer.vcxproj" />
+  <Project Path="enhanced_path_tracer/enhanced_path_tracer.vcxproj" Id="55d56854-763e-4051-b3d6-11c37234370c" />
 </Solution>
