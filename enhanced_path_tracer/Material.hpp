@@ -234,7 +234,17 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
 
 		//GGX 
         case GGX: {
+			//Calculate the half-vector h
+			Vector3f h = normalize(wi + wo);
+			float D = D_GGX(N, h, alpha);
+            float cosThetaH = std::max(0.0f, dotProduct(N, h));
+			float cosOH = std::max(0.0f, dotProduct(wo, h));
 
+			if (cosOH < 1e-6f) return 0.0f; // Avoid division by zero
+
+			//PDF for sampling wo given wi
+			float pdf_wi = D * cosThetaH / (4.0f * cosOH);
+			return pdf_wi;
         }
 
     }
