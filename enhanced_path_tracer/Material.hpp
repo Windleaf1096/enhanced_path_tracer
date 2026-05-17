@@ -112,8 +112,10 @@ public:
     Vector3f Kd, Ks;
     float specularExponent;
     //Texture tex;
+	float roughness; // roughness parameter for GGX
+	float alpha; // roughness parameter for GGX
 
-    inline Material(MaterialType t=DIFFUSE, Vector3f e=Vector3f(0,0,0));
+    inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0), float r = 0.2f);
     inline MaterialType getType();
     //inline Vector3f getColor();
     inline Vector3f getColorAt(double u, double v);
@@ -129,13 +131,15 @@ public:
 
 };
 
-Material::Material(MaterialType t, Vector3f e){
+Material::Material(MaterialType t, Vector3f e,float r){
     m_type = t;
     m_emission = e;
     Kd = Vector3f(0.0f);
     Ks = Vector3f(0.0f);
     ior = 1.3f;
     specularExponent = 50.0f;
+    roughness = r;
+    alpha = roughness * roughness;
 }
 
 MaterialType Material::getType(){return m_type;}
