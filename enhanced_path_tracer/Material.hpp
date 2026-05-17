@@ -332,7 +332,7 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
             break;
         }
 
-		//eval BRDF for GGX materials
+		//eval BRDF for GGX materials (Without the Kulla-Conty compensation term)
         case GGX: {
             // GGX BRDF evaluation
 			Vector3f H = normalize(wi + wo);
