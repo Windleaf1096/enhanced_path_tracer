@@ -117,14 +117,14 @@ private:
 	}
 
 	// GGX Geometry function using Smith's method
-	float G_GGX(const Vector3f& wi, const Vector3f& wo, const Vector3f& h, float alpha) {
-		float G_Smith = G_Schlick(wi, h) * G_Schlick(wo, h);
+	float G_GGX(const Vector3f& wi, const Vector3f& wo, const Vector3f& n, float alpha) {
+		float G_Smith = G_Schlick(wi, n) * G_Schlick(wo, n);
 		return G_Smith;
 	}
 
     // Calculate G_Schilick
 	float G_Schlick(const Vector3f v, const Vector3f n) {
-		float k = (roughness + 1) * (roughness + 1) / 8.0f; // Convert roughness to k
+		float k = alpha / 2.0f;
 		float cosnv = dotProduct(v, n);
 		return cosnv / (cosnv * (1.0f - k) + k);
     }
