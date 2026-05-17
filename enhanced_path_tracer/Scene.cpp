@@ -102,7 +102,11 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     float testDis = (testInter.coords - x).norm();
 
     if (testInter.happened && testInter.m->hasEmission())
+    {
+        //std::cout << "DIFFUSE direct illumination eval : " << ma->eval(ws, wo, N) << std::endl;
+        //std::cout << "GGX direct illumination eval : " << ma->eval(ws, wo, N) << std::endl;
         L_dir = emit * ma->eval(ws, wo, N) * dotProduct(ws, N) * dotProduct(-ws, NN) / (dis2 * pdf_light);
+    }
 
     //Calculate indirect illumination
     Vector3f L_indir = Vector3f();
@@ -118,6 +122,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
             L_indir = castRay(Ray(p, wi), depth+1) * ma->eval(wi, wo, N) * dotProduct(wi, N) / (ma->pdf(wi, wo, N) * RussianRoulette);
     }
 
+	    //std::cout << "L_lig: " << L_lig << ", L_dir: " << L_dir << ", L_indir: " << L_indir << "\n";
         return L_lig + L_dir + L_indir;
     //Custom implement ends
 }

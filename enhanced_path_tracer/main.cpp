@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 {
 
     // Change the definition here to change resolution
-    Scene scene(200, 200);
+    Scene scene(500, 500);
 
 
         //Modles using DIFFUSE materials
