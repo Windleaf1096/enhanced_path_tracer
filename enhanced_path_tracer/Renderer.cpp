@@ -101,7 +101,7 @@ void Renderer::Render(const Scene& scene)
         "_" + time_str + ".ppm";
 
     // save framebuffer to file
-    FILE* fp = fopen(filename.c_str(), "wb");
+    FILE* fp = fopen(("./Pictures_Generated/" + filename).c_str(), "wb");
     (void)fprintf(fp, "P6\n%d %d\n255\n", scene.width, scene.height);
     for (auto i = 0; i < scene.height * scene.width; ++i) {
         static unsigned char color[3];

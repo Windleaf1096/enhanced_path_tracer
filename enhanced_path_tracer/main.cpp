@@ -43,10 +43,8 @@ int main(int argc, char** argv)
 
         //Modifly the modles paths
         MeshTriangle floor("./models/cornellbox/floor.obj", white);
-        //MeshTriangle shortbox("./models/cornellbox/shortbox.obj", white);
-        MeshTriangle shortbox("./models/cornellbox/shortbox.obj", green);
-        //MeshTriangle tallbox("./models/cornellbox/tallbox.obj", white);
-        MeshTriangle tallbox("./models/cornellbox/tallbox.obj", red);
+        MeshTriangle shortbox("./models/cornellbox/shortbox.obj", white);
+        MeshTriangle tallbox("./models/cornellbox/tallbox.obj", white);
         MeshTriangle left("./models/cornellbox/left.obj", red);
         MeshTriangle right("./models/cornellbox/right.obj", green);
         MeshTriangle light_("./models/cornellbox/light.obj", light);

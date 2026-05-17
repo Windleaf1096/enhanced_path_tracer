@@ -169,7 +169,7 @@ Material::Material(MaterialType t, Vector3f e,float r){
     specularExponent = 50.0f;
     roughness = r;
     alpha = roughness * roughness;
-    F0 = Vector3f(0.05f);
+    F0 = Vector3f(0.15f);
 }
 
 MaterialType Material::getType(){return m_type;}
@@ -239,7 +239,7 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
             float cosThetaH = std::max(0.0f, dotProduct(N, h));
 			float cosOH = std::max(0.0f, dotProduct(wo, h));
 
-			if (cosOH < 1e-6f) return 0.0f; // Avoid division by zero
+			if (cosOH < 1e-7f) return 0.0f; // Avoid division by zero
 
 			//PDF for sampling wo given wi
 			float pdf_wi = D * cosThetaH / (4.0f * cosOH);
