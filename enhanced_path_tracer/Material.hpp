@@ -152,7 +152,7 @@ public:
     inline bool hasEmission();
 
     // sample a ray by Material properties
-    inline Vector3f sample(const Vector3f &wi, const Vector3f &N);
+    inline Vector3f sample(const Vector3f &wo, const Vector3f &N);
     // given a ray, calculate the PdF of this ray
     inline float pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
     // given a ray, calculate the contribution of this ray
@@ -189,7 +189,7 @@ Vector3f Material::getColorAt(double u, double v) {
 }
 
 //Given an incoming ray and the normal at the intersection point, sample a ray according to the material properties
-Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
+Vector3f Material::sample(const Vector3f &wo, const Vector3f &N){
     switch(m_type){
         case DIFFUSE:
         {
@@ -209,10 +209,10 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
 			Vector3f h = sampleGGX(N, alpha);  
 
             //Takes the incident direction toward the surface
-			Vector3f wo = reflect(wi, h);  
+			Vector3f wi = reflect(-wo, h);  
 
             //Returns the outgoing direction leaving the surface
-            return wo;
+            return wi;
         }
 
     }

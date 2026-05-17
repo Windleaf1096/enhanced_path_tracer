@@ -117,7 +117,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     //Test Russian Roulette
     float pro = get_random_float();
     if (pro < RussianRoulette) {
-        Vector3f wi = (ma->sample(-wo, N)).normalized();
+        Vector3f wi = (ma->sample(wo, N)).normalized();
         Intersection indirInter = Scene::intersect(Ray(p, wi));
 
         //If the ray hits an object that does not emit light
