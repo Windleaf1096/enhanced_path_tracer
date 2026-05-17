@@ -335,6 +335,18 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
 		//eval BRDF for GGX materials
         case GGX: {
             // GGX BRDF evaluation
+			Vector3f H = normalize(wi + wo);
+			float cosni = std::max(0.0f, dotProduct(N, wi));
+			float cosno = std::max(0.0f, dotProduct(N, wo));
+
+			if (cosni <= 0.0f || cosno <= 0.0f) return Vector3f(0.0f);
+
+			float D = D_GGX(N, H, alpha);
+			Vector3f F = F_GGX(wi, H);
+			float G = G_GGX(wi, wo, N, alpha);
+
+			Vector3f ggx = (D * F * G) / (4.0f * cosni * cosno);
+			return ggx;
 
         }
     }
