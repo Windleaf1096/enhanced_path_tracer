@@ -101,6 +101,14 @@ private:
         return toWorld(localH, N);
     }
 
+	// GGX NDF function
+	float D_GGX(const Vector3f& N, const Vector3f& H, float alpha) {
+		float cosThetaH = dotProduct(N, H);
+		if (cosThetaH <= 0.0f) return 0.0f;
+		float alpha2 = alpha * alpha;
+		float denom = cosThetaH * cosThetaH * (alpha2 - 1.0f) + 1.0f;
+		return alpha2 / (M_PI * denom * denom);
+	}
 
 
 
