@@ -110,7 +110,11 @@ private:
 		return alpha2 / (M_PI * denom * denom);
 	}
 
-
+	// GGX Fresnel function using Schlick's approximation
+	Vector3f F_GGX(const Vector3f& wi, const Vector3f& h) {
+		Vector3f F = F0 + (Vector3f(1.0f) - F0) * std::pow(1.0f - dotProduct(wi, h), 5.0f);
+		return F;
+	}
 
 public:
     MaterialType m_type;
