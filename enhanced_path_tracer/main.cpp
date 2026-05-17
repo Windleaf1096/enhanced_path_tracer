@@ -18,30 +18,30 @@ int main(int argc, char** argv)
 
 
         //Modles using DIFFUSE materials
-        Material* red = new Material(DIFFUSE, Vector3f(0.0f));
-        red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
-        Material* green = new Material(DIFFUSE, Vector3f(0.0f));
-        green->Kd = Vector3f(0.14f, 0.45f, 0.091f);
-        Material* white = new Material(DIFFUSE, Vector3f(0.0f));
-        white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
-        Material* light = new Material(DIFFUSE, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
-        light->Kd = Vector3f(0.65f);
-        scene.setMaterialType("DIFFUSE");
+        //Material* red = new Material(DIFFUSE, Vector3f(0.0f));
+        //red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
+        //Material* green = new Material(DIFFUSE, Vector3f(0.0f));
+        //green->Kd = Vector3f(0.14f, 0.45f, 0.091f);
+        //Material* white = new Material(DIFFUSE, Vector3f(0.0f));
+        //white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
+        //Material* light = new Material(DIFFUSE, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
+        //light->Kd = Vector3f(0.65f);
+        //scene.setMaterialType("DIFFUSE");
 
         //Modles using GGX materials (Without the Kulla-Conty compensation term)
-        //Material* red = new Material(GGX, Vector3f(0.0f));
-        //red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
-        //red->F0 = Vector3f(0.63f, 0.065f, 0.05f);
-        //Material* green = new Material(GGX, Vector3f(0.0f));
-        //green->Kd = Vector3f(0.14f, 0.45f, 0.091f);
-        //green->F0 = Vector3f(0.14f, 0.45f, 0.091f);
-        //Material* white = new Material(GGX, Vector3f(0.0f));
-        //white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
-        //white->F0 = Vector3f(0.725f, 0.71f, 0.68f);
-        //Material* light = new Material(GGX, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
-        //light->Kd = Vector3f(0.65f);
-        //light->F0 = Vector3f(0.65f);
-        //scene.setMaterialType("GGX");
+        Material* red = new Material(GGX, Vector3f(0.0f));
+        red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
+        red->F0 = Vector3f(0.63f, 0.065f, 0.05f);
+        Material* green = new Material(GGX, Vector3f(0.0f));
+        green->Kd = Vector3f(0.14f, 0.45f, 0.091f);
+        green->F0 = Vector3f(0.14f, 0.45f, 0.091f);
+        Material* white = new Material(GGX, Vector3f(0.0f));
+        white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
+        white->F0 = Vector3f(0.725f, 0.71f, 0.68f);
+        Material* light = new Material(GGX, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
+        light->Kd = Vector3f(0.65f);
+        light->F0 = Vector3f(0.65f);
+        scene.setMaterialType("GGX");
 
 
 
