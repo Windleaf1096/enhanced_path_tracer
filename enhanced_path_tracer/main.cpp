@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 {
 
     // Change the definition here to change resolution
-    Scene scene(400, 400);
+    Scene scene(200, 200);
 
 
         //Modles using DIFFUSE materials
@@ -36,41 +36,6 @@ int main(int argc, char** argv)
         white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
         Material* light = new Material(GGX, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
         light->Kd = Vector3f(0.65f);
-
-
-
-
-        //Modles using MICROFACET materials
-        // ---------- Microfacet material definition ----------
-        //Material* red = new Material(MICROFACET, Vector3f(0.0f));
-        //red->Kd = Vector3f(0.63f, 0.065f, 0.05f);      // diffuse color
-        //red->Ks = Vector3f(0.25f, 0.25f, 0.25f);        // specular coefficient (weak reflection)
-        //red->ior = 1.5f;                                // index of refraction (like plastic/glass)
-        //red->specularExponent = 80.0f;                  // specular exponent (medium smoothness)
-
-        //// green (right wall) - rough green plastic
-        //Material* green = new Material(MICROFACET, Vector3f(0.0f));
-        //green->Kd = Vector3f(0.14f, 0.45f, 0.091f);
-        //green->Ks = Vector3f(0.2f, 0.2f, 0.2f);
-        //green->ior = 1.5f;
-        //green->specularExponent = 100.0f;
-
-        //// white (floor, short box, tall box) - rough white surface
-        //Material* white = new Material(MICROFACET, Vector3f(0.0f));
-        //white->Kd = Vector3f(0.725f, 0.71f, 0.68f);
-        //white->Ks = Vector3f(0.1f, 0.1f, 0.1f);         // weak specular reflection for white surface
-        //white->ior = 1.5f;
-        //white->specularExponent = 30.0f;                // relatively rough
-
-        //// light (light source) - diffuse only, no specular
-        //Material* light = new Material(MICROFACET,
-        //    (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) +
-        //        15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) +
-        //        18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
-        //light->Kd = Vector3f(0.65f);                    // diffuse component
-        //light->Ks = Vector3f(0.0f);                     // light source does not need specular reflection
-        //light->ior = 1.0f;                              // avoid Fresnel effect
-        //light->specularExponent = 1.0f;                 // any value, since Ks=0 it doesn't matter
 
 
 

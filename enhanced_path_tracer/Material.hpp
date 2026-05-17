@@ -7,7 +7,7 @@
 
 #include "Vector.hpp"
 
-enum MaterialType { DIFFUSE,MICROFACET,GGX};
+enum MaterialType { DIFFUSE,GGX};
 
 class Material{
 private:
@@ -203,18 +203,6 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
             break;
         }
 
-        case MICROFACET:
-        {
-            // uniform sample on the hemisphere
-            float x_1 = get_random_float(), x_2 = get_random_float();
-            float z = std::fabs(1.0f - 2.0f * x_1);
-            float r = std::sqrt(1.0f - z * z), phi = 2 * M_PI * x_2;
-            Vector3f localRay(r * std::cos(phi), r * std::sin(phi), z);
-            return toWorld(localRay, N);
-
-            break;
-        }
-
         //GGX NDF-based importance sampling
         case GGX: {
             // Sample half-vector h according to GGX NDF
@@ -234,17 +222,6 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
 float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
     switch(m_type){
         case DIFFUSE:
-        {
-            // uniform sample probability 1 / (2 * PI)
-            if (dotProduct(wi, N) > 0.0f)
-                return 0.5f / M_PI;
-            else
-                return 0.0f;
-            break;
-        }
-
-        //MICROFACET uses the same pdf function
-        case MICROFACET:
         {
             // uniform sample probability 1 / (2 * PI)
             if (dotProduct(wi, N) > 0.0f)
@@ -287,48 +264,6 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
             }
             else
                 return Vector3f(0.0f);
-            break;
-        }
-
-        //eval BRDF for MICROFACET materials
-        case MICROFACET:
-        {
-            float cos_wo = dotProduct(N, wo);
-            float cos_wi = dotProduct(N, wi);
-            if (cos_wi <= 0.0f || cos_wo <= 0.0f)
-                return Vector3f(0.0f);
-
-            Vector3f H_unnormalized = wi + wo;
-            if (H_unnormalized.norm() < 1e-6f)
-                return Kd / M_PI;  
-            Vector3f H = normalize(wi + wo);
-
-            float alpha = std::sqrt(2.0f / (specularExponent + 2.0f));
-
-            float cos_theta_h = dotProduct(N, H);
-            if (cos_theta_h <= 0.0f) return Vector3f(0.0f);
-            float alpha2 = alpha * alpha;
-            float denomD = cos_theta_h * cos_theta_h * (alpha2 - 1.0f) + 1.0f;
-            float D = alpha2 / (M_PI * denomD * denomD);
-
-            auto G1 = [&](const Vector3f& v, const Vector3f& n) -> float {
-                float cos_v = dotProduct(v, n);
-                if (cos_v <= 0.0f) return 0.0f;
-                float tan2 = (1.0f - cos_v * cos_v) / (cos_v * cos_v);
-                return 2.0f / (1.0f + std::sqrt(1.0f + alpha2 * tan2));
-                };
-            float G = G1(wi, N) * G1(wo, N);
-
-            float F = 0.0f;
-            fresnel(wi, H, ior, F);
-
-            float denom = 4.0f * cos_wi * cos_wo;
-            if (denom <= 0.0f) return Vector3f(0.0f);
-            Vector3f specular = Ks * (D * G * F / denom);
-
-            Vector3f diffuse = Kd / M_PI;
-
-            return diffuse + specular;
             break;
         }
 
