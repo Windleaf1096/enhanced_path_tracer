@@ -185,8 +185,16 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
             break;
         }
 
+        //GGX NDF-based importance sampling
         case GGX: {
+            // Sample half-vector h according to GGX NDF
+			Vector3f h = sampleGGX(N, alpha);  
 
+            //Takes the incident direction toward the surface
+			Vector3f wo = reflect(wi, h);  
+
+            //Returns the outgoing direction leaving the surface
+            return -wo;
         }
 
     }
