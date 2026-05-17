@@ -7,7 +7,7 @@
 
 #include "Vector.hpp"
 
-enum MaterialType { DIFFUSE,MICROFACET};
+enum MaterialType { DIFFUSE,MICROFACET,GGX};
 
 class Material{
 private:
@@ -181,6 +181,10 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
             break;
         }
 
+        case GGX: {
+
+        }
+
     }
 }
 
@@ -205,6 +209,11 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
             else
                 return 0.0f;
             break;
+        }
+
+		//GGX 
+        case GGX: {
+
         }
 
     }
@@ -266,6 +275,11 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
 
             return diffuse + specular;
             break;
+        }
+
+		//eval BRDF for GGX materials
+        case GGX: {
+            // GGX BRDF evaluation
         }
     }
 }
