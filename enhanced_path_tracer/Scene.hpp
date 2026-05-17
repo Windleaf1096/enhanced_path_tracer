@@ -25,6 +25,9 @@ public:
     int maxDepth = 10;
     float RussianRoulette = 0.8;
 	std::string filename;
+    std::string materialType = "Unknown";
+
+    void setMaterialType(const std::string& type) { materialType = type; }
 
     Scene(int w, int h) : width(w), height(h)
     {}

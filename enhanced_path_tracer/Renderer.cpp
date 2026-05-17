@@ -10,6 +10,9 @@
 #include <fstream>
 #include <thread>
 #include <string>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 #include "Scene.hpp"
 #include "Renderer.hpp"
 
@@ -33,7 +36,7 @@ void Renderer::Render(const Scene& scene)
 
     // change the spp value to change sample ammount
     //int spp = 16;
-    int spp = 12;
+    int spp = 8;
     std::cout << "SPP: " << spp << "\n";
 
     std::atomic<int> completed_rows(0);
@@ -80,11 +83,24 @@ void Renderer::Render(const Scene& scene)
     if (progress_thread.joinable())
         progress_thread.join();
 
+
+
+	// Get the current time
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm* now_tm = std::localtime(&now_c);
+
+    std::stringstream time_ss;
+    time_ss << std::setw(2) << std::setfill('0') << now_tm->tm_hour
+        << std::setw(2) << std::setfill('0') << now_tm->tm_min;
+    std::string time_str = time_ss.str();
+
+	// Create a filename 
+    std::string filename = std::to_string(scene.width) + "x" + std::to_string(scene.height) +
+        "_spp" + std::to_string(spp) + "_" + scene.materialType +
+        "_" + time_str + ".ppm";
+
     // save framebuffer to file
-
-	std::string filename = std::to_string(scene.width) + "x" + std::to_string(scene.height) + "_spp" + std::to_string(spp) + ".ppm";
-
-
     FILE* fp = fopen(filename.c_str(), "wb");
     (void)fprintf(fp, "P6\n%d %d\n255\n", scene.width, scene.height);
     for (auto i = 0; i < scene.height * scene.width; ++i) {
