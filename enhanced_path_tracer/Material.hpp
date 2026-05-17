@@ -124,8 +124,9 @@ private:
 
     // Calculate G_Schilick
 	float G_Schlick(const Vector3f v, const Vector3f n) {
-		float k = alpha / 2.0f;
 		float cosnv = dotProduct(v, n);
+		if (cosnv <= 0.0f) return 0.0f;
+        float k = alpha / 2.0f;
 		return cosnv / (cosnv * (1.0f - k) + k);
     }
 
@@ -334,6 +335,7 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
 		//eval BRDF for GGX materials
         case GGX: {
             // GGX BRDF evaluation
+
         }
     }
 }
