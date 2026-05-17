@@ -169,7 +169,7 @@ Material::Material(MaterialType t, Vector3f e,float r){
     specularExponent = 50.0f;
     roughness = r;
     alpha = roughness * roughness;
-    F0 = Vector3f(0.15f);
+    F0 = Vector3f(0.1f);
 }
 
 MaterialType Material::getType(){return m_type;}
@@ -212,7 +212,7 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N){
 			Vector3f wo = reflect(wi, h);  
 
             //Returns the outgoing direction leaving the surface
-            return -wo;
+            return wo;
         }
 
     }
