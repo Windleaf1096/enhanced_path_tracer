@@ -99,10 +99,40 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     Vector3f testOri = p + N * EPSILON;
     Ray testRay = Ray(testOri, ws);
     Intersection testInter = Scene::intersect(testRay);
-    float testDis = (testInter.coords - x).norm();
+    float testDis = (testInter.coords - x).norm();  //The testDis variable is not used.
 
+
+	//L_dir dubug message
+
+    static int debug_count = 0;
+    const int max_debug_print = 20; 
+
+    //Check if the hit point is emissive to determine the light source.
     if (testInter.happened && testInter.m->hasEmission())
     {
+        //Vector3f eval_val = ma->eval(ws, wo, N);
+        //float cos_ws_N = dotProduct(ws, N);
+        //float cos_negws_NN = dotProduct(-ws, NN);
+        //float pdf_light_val = pdf_light;
+
+        //Vector3f L_dir_raw = emit * eval_val * cos_ws_N * cos_negws_NN / (dis2 * pdf_light_val);
+
+        //if (debug_count < max_debug_print)
+        //{
+        //    printf("\n[DirectLight] Sample #%d\n", debug_count++);
+        //    printf("  emit = (%.4f, %.4f, %.4f)\n", emit.x, emit.y, emit.z);
+        //    printf("  eval = (%.6f, %.6f, %.6f)\n", eval_val.x, eval_val.y, eval_val.z);
+        //    printf("  ws = (%.4f, %.4f, %.4f), N = (%.4f, %.4f, %.4f)\n", ws.x, ws.y, ws.z, N.x, N.y, N.z);
+        //    printf("  dot(ws, N) = %.6f\n", cos_ws_N);
+        //    printf("  -ws = (%.4f, %.4f, %.4f), NN = (%.4f, %.4f, %.4f)\n", -ws.x, -ws.y, -ws.z, NN.x, NN.y, NN.z);
+        //    printf("  dot(-ws, NN) = %.6f\n", cos_negws_NN);
+        //    printf("  dis2 = %.6f, pdf_light = %.6f\n", dis2, pdf_light_val);
+        //    printf("  L_dir = (%.6f, %.6f, %.6f)\n", L_dir_raw.x, L_dir_raw.y, L_dir_raw.z);
+
+        //    if (L_dir_raw.x > 10.0f || L_dir_raw.y > 10.0f || L_dir_raw.z > 10.0f)
+        //        printf("  [WARNING] L_dir component exceeds 10!\n");
+        //}
+
         L_dir = emit * ma->eval(ws, wo, N) * dotProduct(ws, N) * dotProduct(-ws, NN) / (dis2 * pdf_light);
     }
 
