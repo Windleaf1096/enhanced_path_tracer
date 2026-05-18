@@ -136,10 +136,10 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         L_dir = emit * ma->eval(ws, wo, N) * dotProduct(ws, N) * dotProduct(-ws, NN) / (dis2 * pdf_light);
     }
 
-    //Calculate indirect illumination
+    // Calculate indirect illumination
     Vector3f L_indir = Vector3f();
 
-    //Test Russian Roulette
+    // Test Russian Roulette
     float pro = get_random_float();
     if (pro < RussianRoulette) {
         Vector3f wi = (ma->sample(wo, N)).normalized();

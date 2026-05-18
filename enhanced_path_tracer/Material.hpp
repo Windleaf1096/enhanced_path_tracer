@@ -218,6 +218,13 @@ Vector3f Material::sample(const Vector3f &wo, const Vector3f &N){
             //Takes the incident direction toward the surface
 			Vector3f wi = reflect(-wo, h);  
 
+            wi = normalize(wi);
+
+            // reject below hemisphere
+            if (dotProduct(wi, N) <= 0.0f)
+                return Vector3f(0.0f);
+
+
             //Returns the outgoing direction leaving the surface
             return wi;
         }
