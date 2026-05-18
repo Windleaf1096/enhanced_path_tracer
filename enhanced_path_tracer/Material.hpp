@@ -128,7 +128,7 @@ private:
 		float cosnv = dotProduct(v, n);
 		if (cosnv <= 0.0f) return 0.0f;
 
-        // //formula from UE4
+        //formula from UE4
 		//float k = alpha / 2.0f;
 
         //formula from Disney's principled BRDF
@@ -224,7 +224,6 @@ Vector3f Material::sample(const Vector3f &wo, const Vector3f &N){
             if (dotProduct(wi, N) <= 0.0f)
                 return Vector3f(0.0f);
 
-
             //Returns the outgoing direction leaving the surface
             return wi;
         }
@@ -258,20 +257,10 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
             float cosThetaH = std::max(0.0f, dotProduct(N, h));
 			float cosOH = std::max(0.0f, dotProduct(wo, h));
 
-            if (cosOH < 1e-7f) {
-				//debug message
-                //printf("[pdf GGX] cosOH too small: cosOH=%.10f, D=%.6f, cosThetaH=%.6f\n", cosOH, D, cosThetaH);
-                return 0.0f;
-            }
+            if (cosOH < 1e-7f) { return 0.0f;}
 
 			//PDF for sampling wo given wi
 			float pdf_wi = D * cosThetaH / (4.0f * cosOH);
-
-            if (pdf_wi < 1e-5f) {
-				//debug message
-                //printf("[pdf GGX] pdf_wi=%.10f, D=%.6f, cosThetaH=%.6f, cosOH=%.10f, wi=(%.3f,%.3f,%.3f), wo=(%.3f,%.3f,%.3f)\n",
-                //    pdf_wi, D, cosThetaH, cosOH, wi.x, wi.y, wi.z, wo.x, wo.y, wo.z);
-            }
 
 			return pdf_wi;
         }
@@ -285,9 +274,8 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
     switch(m_type){
         case DIFFUSE:
         {
-            // calculate the contribution of diffuse   model
+            // calculate the contribution of diffuse model
             float cosalpha = dotProduct(N, wo);
-            //float cosalpha = dotProduct(N, wi);
             if (cosalpha > 0.0f) {
                 Vector3f diffuse = Kd / M_PI;
                 return diffuse;
@@ -311,14 +299,6 @@ Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &
 			float G = G_GGX(wi, wo, N, alpha);
 
 			Vector3f ggx = (D * F * G) / (4.0f * cosni * cosno);
-
-			//debug message for large BRDF values
-            //if (ggx.x > 1.0f || ggx.y > 1.0f || ggx.z > 1.0f) {
-            //    printf("[eval GGX] ggx=(%.6f,%.6f,%.6f), D=%.6f, F=(%.6f,%.6f,%.6f), G=%.6f, cosni=%.6f, cosno=%.6f\n",
-            //        ggx.x, ggx.y, ggx.z, D, F.x, F.y, F.z, G, cosni, cosno);
-            //}
-
-
 
 			return ggx;
 

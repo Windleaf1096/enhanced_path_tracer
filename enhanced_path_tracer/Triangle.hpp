@@ -233,7 +233,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
 {
     Intersection inter;
 
-    //Debug test disable
+    //Back-face culling
     if (dotProduct(ray.direction, normal) > 0)
         return inter;
 
@@ -254,8 +254,6 @@ inline Intersection Triangle::getIntersection(Ray ray)
     if (v < 0 || u + v > 1)
         return inter;
     t_tmp = dotProduct(e2, qvec) * det_inv;
-
-    // TODO find ray triangle intersection
 
     //Custom implement begins
     if (t_tmp > 0) {
