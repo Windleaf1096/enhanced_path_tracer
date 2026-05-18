@@ -249,10 +249,10 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N){
         case GGX: {
 			//Calculate the half-vector h
 			//Handle the case when wi = -wo 
-            Vector3f h = wi + wo;
-            if (h.norm() < 1e-6f)
+            Vector3f h_temp = wi + wo;
+            if (h_temp.norm() < 1e-6f)
                 return 0.0f;
-			Vector3f h = normalize(wi + wo);
+			Vector3f h = normalize(h_temp);
 
 			float D = D_GGX(N, h, alpha);
             float cosThetaH = std::max(0.0f, dotProduct(N, h));
